@@ -1,0 +1,95 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Streamlit
+.streamlit/secrets.toml
+.streamlit/cache/
+.streamlit/logger/
+
+# Data (exclude large datasets)
+dataset/
+*.zip
+*.tar.gz
+
+# CSV files (except fertilizer_recommendation.csv)
+CropDataset-Enhanced.csv
+*.csv
+!fertilizer_recommendation.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+.env
+.env.local
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+!adaboost.ipynb
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Documentation (optional - exclude if too many)
+AGRI_SMART_*.md
+SLIDE_*.md
+PBL_*.md
+DEPLOYMENT_*.md
+VERCEL_*.md
+RAILWAY_*.md
+QUICK_*.md
+SRS_*.md
+IMPLEMENTATION_*.md
+PRESENTATION_*.md
+CONCLUSION_*.md
+
+# Other unnecessary files
+*.pptx
+*.docx
+*.pdf
+*.webp
+resume*.pdf
+test*.py
+test*.ipynb
+save_scaler.py
+SHAP_Fix.py
+train_cnn.py
+Figure_*.png
+shap_*.png
+model_training.txt
+Logistic_Regression.ipynb
+ML_Week_*.ipynb
+Baysian_*.ipynb
+adaboost.ipynb
+test1.ipynb
+Week_*.ipynb
+FAKE_*.pptx
+Diffie_*.pptx
+ML_PBL*.pptx
+ml_project.pdf.pdf
+*.pdf.pdf
