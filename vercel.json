@@ -1,14 +1,5 @@
 {
   "buildCommand": "pip install -r requirements.txt",
   "outputDirectory": ".",
-  "framework": "python",
-  "env": {
-    "PYTHONUNBUFFERED": "1"
-  },
-  "functions": {
-    "api/index.py": {
-      "memory": 2048,
-      "maxDuration": 120
-    }
-  }
+  "framework": "python"
 }
