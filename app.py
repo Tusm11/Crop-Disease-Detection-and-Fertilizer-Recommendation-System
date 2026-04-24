@@ -18,10 +18,10 @@ st.set_page_config(page_title="Crop Disease Detection and Fertilizer Detection",
 def load_assets():
     cnn, ada, le_soil, le_crop, le_fert, class_names, scaler = None, None, None, None, None, None, None
 
-    if os.path.exists('models/plant_cnn_model.h5'):
-        cnn = tf.keras.models.load_model('models/plant_cnn_model.h5')
-    elif os.path.exists('models/plant_cnn_model.keras'):
+    if os.path.exists('models/plant_cnn_model.keras'):
         cnn = tf.keras.models.load_model('models/plant_cnn_model.keras')
+    elif os.path.exists('models/plant_cnn_model.h5'):
+        cnn = tf.keras.models.load_model('models/plant_cnn_model.h5')
 
     if os.path.exists('models/fertilizer_ada_model.pkl'):
         ada = joblib.load('models/fertilizer_ada_model.pkl')
