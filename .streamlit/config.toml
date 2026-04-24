@@ -1,15 +1,8 @@
 [theme]
-<<<<<<< HEAD
-primaryColor = "#ff4b4b"
-backgroundColor = "#0e1117"
-secondaryBackgroundColor = "#262730"
-textColor = "#fafafa"
-=======
 primaryColor = "#2ecc71"
 backgroundColor = "#ffffff"
 secondaryBackgroundColor = "#f0f2f6"
 textColor = "#262730"
->>>>>>> ac3b109be22706103aa5be7f8e3163333838ef4b
 font = "sans serif"
 
 [client]
@@ -20,19 +13,11 @@ toolbarMode = "viewer"
 level = "info"
 
 [server]
-<<<<<<< HEAD
 port = 8501
 headless = true
 runOnSave = false
 maxUploadSize = 200
 enableXsrfProtection = false
-=======
-port = 3000
-headless = true
-runOnSave = true
-maxUploadSize = 200
-enableXsrfProtection = true
->>>>>>> ac3b109be22706103aa5be7f8e3163333838ef4b
 
 [browser]
 gatherUsageStats = false
