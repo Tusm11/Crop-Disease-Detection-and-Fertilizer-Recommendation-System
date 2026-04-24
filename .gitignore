@@ -1,30 +1,66 @@
+<<<<<<< HEAD
 # Exclude dataset folder
 dataset/
 
 # Python cache
+=======
+# Python
+>>>>>>> ac3b109be22706103aa5be7f8e3163333838ef4b
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
+<<<<<<< HEAD
 
 # Virtual environments
 venv/
 .venv/
 env/
+=======
+.Python
+env/
+venv/
+.venv
+*.egg-info/
+dist/
+build/
+*.egg
+>>>>>>> ac3b109be22706103aa5be7f8e3163333838ef4b
 
 # Streamlit
 .streamlit/secrets.toml
 .streamlit/cache/
+<<<<<<< HEAD
+=======
+.streamlit/logger/
+
+# Data (exclude large datasets)
+dataset/
+*.zip
+*.tar.gz
+
+# CSV files (except fertilizer_recommendation.csv)
+CropDataset-Enhanced.csv
+*.csv
+!fertilizer_recommendation.csv
+>>>>>>> ac3b109be22706103aa5be7f8e3163333838ef4b
 
 # IDE
 .vscode/
 .idea/
 *.swp
+<<<<<<< HEAD
+=======
+*.swo
+*.sublime-project
+*.sublime-workspace
+>>>>>>> ac3b109be22706103aa5be7f8e3163333838ef4b
 
 # OS
 .DS_Store
 Thumbs.db
 .env
+<<<<<<< HEAD
 
 # Jupyter
 .ipynb_checkpoints/
@@ -35,3 +71,59 @@ Thumbs.db
 # Temporary files
 *.tmp
 *~
+=======
+.env.local
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+!adaboost.ipynb
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Documentation (optional - exclude if too many)
+AGRI_SMART_*.md
+SLIDE_*.md
+PBL_*.md
+DEPLOYMENT_*.md
+VERCEL_*.md
+RAILWAY_*.md
+QUICK_*.md
+SRS_*.md
+IMPLEMENTATION_*.md
+PRESENTATION_*.md
+CONCLUSION_*.md
+
+# Other unnecessary files
+*.pptx
+*.docx
+*.pdf
+*.webp
+resume*.pdf
+test*.py
+test*.ipynb
+save_scaler.py
+SHAP_Fix.py
+train_cnn.py
+Figure_*.png
+shap_*.png
+model_training.txt
+Logistic_Regression.ipynb
+ML_Week_*.ipynb
+Baysian_*.ipynb
+adaboost.ipynb
+test1.ipynb
+Week_*.ipynb
+FAKE_*.pptx
+Diffie_*.pptx
+ML_PBL*.pptx
+ml_project.pdf.pdf
+*.pdf.pdf
+>>>>>>> ac3b109be22706103aa5be7f8e3163333838ef4b
