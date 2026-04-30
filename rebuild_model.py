@@ -1,8 +1,9 @@
 import tensorflow as tf
 from tensorflow.keras import layers, models
 import os
+import shutil
 
-# Load the old model (ignore the augmentation layer errors)
+# Load the old model
 print("Loading old model...")
 try:
     old_model = tf.keras.models.load_model('models/plant_cnn_model.keras')
@@ -16,7 +17,7 @@ print("Extracting weights...")
 old_weights = old_model.get_weights()
 print(f"✓ Extracted {len(old_weights)} weight arrays")
 
-# Build a NEW model WITHOUT augmentation layers (inference only)
+# Build a NEW model WITHOUT augmentation layers
 print("Building new inference model...")
 IMG_SIZE = (64, 64)
 num_classes = old_model.output_shape[-1]
@@ -54,17 +55,23 @@ new_model = models.Sequential([
 
 print("✓ New model built")
 
-# Transfer ALL weights (the new model should have same number)
+# Transfer weights
 print(f"Transferring {len(old_weights)} weights...")
 new_model.set_weights(old_weights)
 print("✓ Weights transferred")
 
-# Save as .keras
-new_model.save('models/plant_cnn_model.keras')
-print("✓ Model saved to models/plant_cnn_model.keras")
+# Compile the model
+new_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+# Save as SavedModel format (most compatible)
+if os.path.exists('models/plant_cnn_model_savedmodel'):
+    shutil.rmtree('models/plant_cnn_model_savedmodel')
+    
+new_model.save('models/plant_cnn_model_savedmodel')
+print("✓ Model saved to models/plant_cnn_model_savedmodel (SavedModel format)")
 
 # Test loading
 print("Testing load...")
-test_model = tf.keras.models.load_model('models/plant_cnn_model.keras')
+test_model = tf.keras.models.load_model('models/plant_cnn_model_savedmodel')
 print("✓ Model loads successfully!")
 print(f"✓ Output shape: {test_model.output_shape}")
