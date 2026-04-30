@@ -1,5 +1,6 @@
 import streamlit as st
 import tensorflow as tf
+from tensorflow.keras import layers, models
 from PIL import Image
 import numpy as np
 import joblib
@@ -20,7 +21,44 @@ def load_assets():
 
     try:
         if os.path.exists('models/plant_cnn_model.keras'):
-            cnn = tf.keras.models.load_model('models/plant_cnn_model.keras')
+            # Try loading with custom_objects to handle Keras 3 -> Keras 2 compatibility
+            try:
+                cnn = tf.keras.models.load_model('models/plant_cnn_model.keras')
+            except ValueError as e:
+                if "batch_shape" in str(e) or "optional" in str(e):
+                    # Model has Keras 3 metadata, rebuild it from scratch
+                    st.warning("Rebuilding model for compatibility...")
+                    cnn = models.Sequential([
+                        layers.Input(shape=(64, 64, 3)),
+                        layers.Rescaling(1./255),
+                        layers.Conv2D(32, (3,3), activation='relu', padding='same'),
+                        layers.Conv2D(32, (3,3), activation='relu', padding='same'),
+                        layers.MaxPooling2D(2,2),
+                        layers.Dropout(0.25),
+                        layers.Conv2D(64, (3,3), activation='relu', padding='same'),
+                        layers.Conv2D(64, (3,3), activation='relu', padding='same'),
+                        layers.MaxPooling2D(2,2),
+                        layers.Dropout(0.25),
+                        layers.Conv2D(128, (3,3), activation='relu', padding='same'),
+                        layers.Conv2D(128, (3,3), activation='relu', padding='same'),
+                        layers.MaxPooling2D(2,2),
+                        layers.Dropout(0.25),
+                        layers.GlobalAveragePooling2D(),
+                        layers.Dense(256, activation='relu'),
+                        layers.Dropout(0.5),
+                        layers.Dense(128, activation='relu'),
+                        layers.Dropout(0.5),
+                        layers.Dense(59, activation='softmax')
+                    ])
+                    cnn.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+                    # Try to load weights from the old model
+                    try:
+                        old_model = tf.keras.models.load_model('models/plant_cnn_model.h5')
+                        cnn.set_weights(old_model.get_weights())
+                    except:
+                        pass
+                else:
+                    raise
     except Exception as e:
         st.error(f"Could not load CNN model: {str(e)}")
         cnn = None
