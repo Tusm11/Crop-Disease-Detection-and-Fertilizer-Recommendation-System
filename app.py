@@ -19,7 +19,10 @@ def load_assets():
     cnn, ada, le_soil, le_crop, le_fert, class_names, scaler = None, None, None, None, None, None, None
 
     try:
-        if os.path.exists('models/plant_cnn_model.keras'):
+        # Try to load the TF 2.15.1 compatible model first
+        if os.path.exists('models/plant_cnn_model_tf215.keras'):
+            cnn = tf.keras.models.load_model('models/plant_cnn_model_tf215.keras')
+        elif os.path.exists('models/plant_cnn_model.keras'):
             cnn = tf.keras.models.load_model('models/plant_cnn_model.keras')
     except Exception as e:
         st.error(f"Could not load CNN model: {str(e)}")
