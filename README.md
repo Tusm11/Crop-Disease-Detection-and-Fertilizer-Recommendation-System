@@ -251,6 +251,6 @@ For questions or issues, please open an issue on GitHub or contact the project m
 
 ---
 
-**Live Demo:** [Streamlit Cloud Link](https://crop-disease-detection-and-fertilizer-recommendation-system.streamlit.app/)
+*Streamlit cloud link*: https://crop-disease-detection-and-fertilizer-recommendation-system-rs.streamlit.app/
 
 **GitHub Repository:** [Tusm11/Crop-Disease-Detection-and-Fertilizer-Recommendation-System](https://github.com/Tusm11/Crop-Disease-Detection-and-Fertilizer-Recommendation-System)
