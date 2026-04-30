@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from soil_lookup import get_soil_crop_values, get_available_soil_types
 from sklearn.preprocessing import StandardScaler
+from rebuild_model_on_startup import rebuild_cnn_model
 
 st.set_page_config(page_title="Crop Disease Detection and Fertilizer Detection", page_icon="🌿", layout="centered")
 
@@ -20,45 +21,8 @@ def load_assets():
     cnn, ada, le_soil, le_crop, le_fert, class_names, scaler = None, None, None, None, None, None, None
 
     try:
-        if os.path.exists('models/plant_cnn_model.keras'):
-            # Try loading with custom_objects to handle Keras 3 -> Keras 2 compatibility
-            try:
-                cnn = tf.keras.models.load_model('models/plant_cnn_model.keras')
-            except ValueError as e:
-                if "batch_shape" in str(e) or "optional" in str(e):
-                    # Model has Keras 3 metadata, rebuild it from scratch
-                    st.warning("Rebuilding model for compatibility...")
-                    cnn = models.Sequential([
-                        layers.Input(shape=(64, 64, 3)),
-                        layers.Rescaling(1./255),
-                        layers.Conv2D(32, (3,3), activation='relu', padding='same'),
-                        layers.Conv2D(32, (3,3), activation='relu', padding='same'),
-                        layers.MaxPooling2D(2,2),
-                        layers.Dropout(0.25),
-                        layers.Conv2D(64, (3,3), activation='relu', padding='same'),
-                        layers.Conv2D(64, (3,3), activation='relu', padding='same'),
-                        layers.MaxPooling2D(2,2),
-                        layers.Dropout(0.25),
-                        layers.Conv2D(128, (3,3), activation='relu', padding='same'),
-                        layers.Conv2D(128, (3,3), activation='relu', padding='same'),
-                        layers.MaxPooling2D(2,2),
-                        layers.Dropout(0.25),
-                        layers.GlobalAveragePooling2D(),
-                        layers.Dense(256, activation='relu'),
-                        layers.Dropout(0.5),
-                        layers.Dense(128, activation='relu'),
-                        layers.Dropout(0.5),
-                        layers.Dense(59, activation='softmax')
-                    ])
-                    cnn.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-                    # Try to load weights from the old model
-                    try:
-                        old_model = tf.keras.models.load_model('models/plant_cnn_model.h5')
-                        cnn.set_weights(old_model.get_weights())
-                    except:
-                        pass
-                else:
-                    raise
+        # Rebuild model if needed (handles Keras 3 -> Keras 2 compatibility)
+        cnn = rebuild_cnn_model()
     except Exception as e:
         st.error(f"Could not load CNN model: {str(e)}")
         cnn = None
